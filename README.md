@@ -64,6 +64,7 @@ app.listen(port, () => {
 * Usar https://www.mockaroo.com/ para crear data Dummy Json
 ![Captura](https://user-images.githubusercontent.com/7141537/170792938-52b18704-b14b-4e4b-babf-afa57e954a98.PNG)
 
+* levantar servidor > npm run server (ver package.json)
 ## Salida desde postman
 ![Captura1](https://user-images.githubusercontent.com/7141537/170792941-265205f5-ac3b-4f7e-8080-2c0986cc9e1f.PNG)
 
