@@ -67,4 +67,68 @@ app.listen(port, () => {
 ## Salida desde postman
 ![Captura1](https://user-images.githubusercontent.com/7141537/170792941-265205f5-ac3b-4f7e-8080-2c0986cc9e1f.PNG)
 
+## Crear CRUD 
+* service.js
+```
+const data = require("./MOCK_DATA.json");
 
+module.exports = {
+  getUser: () => data,
+  createUser: (dataUser) => {
+    // Data solo en memoria
+
+    const newUser = {
+      id: data.length + 1,
+      ...dataUser,
+    };
+    data.push(newUser);
+    return newUser;
+  },
+};
+
+```
+* Modificar server.js
+```diff
+...
+
++ const Service = require("./src/service");
+
+...
+
++ // Permitir recibir datos en NodeJS
++ app.use(express.json());
+
++ // GET: ruta, controlador
++  app.get("/", (req, res) => {
++    res.json({
++    message: "Lista de usuarios",
++     body: Service.getUser(),
++   });
++ });
+
++ // POST: ruta, controlador
++ app.post("/", (req, res) => {
++   const { body: newUser } = req;
++   const user = Service.createUser(newUser);
++   res.status(201).json({
++     message: "usuario creado correctamente.",
++     body: user,
++   });
++ });
+
+...
+
+app.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
+});
+```
+
+* Consulta inicial
+![CapturaA](https://user-images.githubusercontent.com/7141537/170797304-e055288e-f9d1-42b3-8805-b8d1c8e48ffa.PNG)
+
+* Agregar Usuario
+![Captura](https://user-images.githubusercontent.com/7141537/170797305-50985d3a-c64c-4da4-8b92-800a20fad108.PNG)
+
+
+* Consulta para ver el cambio
+![Captura1](https://user-images.githubusercontent.com/7141537/170797302-956b9a24-c367-4e3c-8632-cdcc096691aa.PNG)
