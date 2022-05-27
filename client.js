@@ -23,7 +23,7 @@ const main = async () => {
 
   characters = "ID,NOMBRE,ESTADO,ESPECIES\n".concat(characters);
 
-  // await fs.writeFile(path.join(__dirname, "data.csv"), characters);
+  await fs.writeFile(path.join(__dirname, "data.csv"), characters);
   //   console.log(path.join(__dirname, "data.csv"));
   console.log(characters);
 };

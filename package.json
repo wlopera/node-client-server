@@ -4,7 +4,8 @@
   "description": "Cliente servidor en nodeJS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "node client.js",
+    "server": "nodemon server.js"
   },
   "keywords": [
     "cliente",
@@ -14,6 +15,10 @@
   "author": "wlopera",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }
