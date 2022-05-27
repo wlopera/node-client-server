@@ -4,7 +4,7 @@ Cliente servidor en NodeJS
 ## Crear cliente para consultar The Rick and Morty API
  * https://rickandmortyapi.com/
 
-#### Crear archivo: index.js
+#### Crear archivo: client.js
 ```
 const axios = require("axios");
 const fs = require("fs").promises;
@@ -38,4 +38,5 @@ const main = async () => {
 
 main();
 ```
+#### Procesar el archivo creado con nodeJS $>node client.js
 ![Captura1](https://user-images.githubusercontent.com/7141537/170783194-9117398d-95da-48f5-a4b3-fd7d570ea27a.PNG)
