@@ -67,7 +67,7 @@ app.listen(port, () => {
 ## Salida desde postman
 ![Captura1](https://user-images.githubusercontent.com/7141537/170792941-265205f5-ac3b-4f7e-8080-2c0986cc9e1f.PNG)
 
-## Crear CRUD 
+## Crear CRUD - Consultar usuarios y crear un nuevo usuario
 * service.js
 ```
 const data = require("./MOCK_DATA.json");
@@ -132,3 +132,83 @@ app.listen(port, () => {
 
 * Consulta para ver el cambio
 ![Captura1](https://user-images.githubusercontent.com/7141537/170797302-956b9a24-c367-4e3c-8632-cdcc096691aa.PNG)
+
+## Consultar usuario por id, modificar y borrar usuario
+* node-client-server\server.js
+```
+...
+// GET por identificador: ruta, controlador
+app.get("/:id", (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  const user = Service.getUser(id);
+  res.json({
+    message: `Usuario ${id}`,
+    body: user,
+  });
+});
+
+// PUT - Modificar usuario: ruta, controlador
+app.put("/:id", (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  const { body: newUser } = req;
+  const user = Service.updateUser(id, newUser);
+  res.json({
+    message: `Usuario Modificado ${user.id}`,
+    body: user,
+  });
+});
+
+// DELETE - Eliminar usuario: ruta, controlador
+app.delete("/:id", (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  const identifier = Service.deleteUser(id);
+  res.json({
+    message: `Usuario Borrado ${identifier}`,
+  });
+});
+...
+```
+
+* node-client-server\src\service.js
+```
+...
+  getUser: (id) => {
+    const identifier = Number(id); // parseint(id)
+    // const user = data.filter((user) => user.id === identifier)[0];
+    const user = data.find((user) => user.id === identifier);
+    return user;
+  },
+  updateUser: (id, dataUser) => {
+    const identifier = Number(id);
+    const index = data.findIndex((user) => user.id === identifier);
+    data[index] = {
+      id: id,
+      ...dataUser,
+    };
+    return data[index];
+  },
+  deleteUser: (id) => {
+    const identifier = Number(id);
+    data = data.filter((user) => user.id !== identifier);
+    return id;
+  },
+...
+```
+
+### Consultar usuario por id
+![CCaptura](https://user-images.githubusercontent.com/7141537/171022974-7d85e7ff-020c-4f9a-b2b6-9c689f1cfaa4.PNG)
+
+### Modificar usuario
+![mCaptura](https://user-images.githubusercontent.com/7141537/171022983-3a48bf02-8621-485b-b724-6b3ff6430eb9.PNG)
+
+### Borrar usuario
+![DCaptura](https://user-images.githubusercontent.com/7141537/171022980-f4a9ff92-1d81-4590-b6b9-98ca21f038fa.PNG)
+

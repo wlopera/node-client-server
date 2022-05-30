@@ -12,7 +12,45 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({
     message: "Lista de usuarios",
-    body: Service.getUser(),
+    body: Service.getUsers(),
+  });
+});
+
+// GET por identificador: ruta, controlador
+app.get("/:id", (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  const user = Service.getUser(id);
+  res.json({
+    message: `Usuario ${id}`,
+    body: user,
+  });
+});
+
+// PUT - Modificar usuario: ruta, controlador
+app.put("/:id", (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  const { body: newUser } = req;
+  const user = Service.updateUser(id, newUser);
+  res.json({
+    message: `Usuario Modificado ${user.id}`,
+    body: user,
+  });
+});
+
+// DELETE - Eliminar usuario: ruta, controlador
+app.delete("/:id", (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  const identifier = Service.deleteUser(id);
+  res.json({
+    message: `Usuario Borrado ${identifier}`,
   });
 });
 
